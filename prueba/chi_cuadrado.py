@@ -22,9 +22,23 @@ class ChiCuadrado(object):
             else:
                 self.rango_menor.append(self.rango_mayor[i-1])
             self.rango_mayor.append( self.rango_menor[i] + paso )
+        self.rango_mayor[i] = 1.0 # el ultimo valor debe ser 1.0
 
-    def get_rango_menor(self):
-        return self.rango_menor
+    def contar(self, rango_inferior, rango_superior, llave_derecha):
+        contador = 0
+        for i in range(self.n):
+            if llave_derecha == ">":
+                if ( rango_inferior >= valores[i] ) and ( valores[i] < rango_superior ):
+                    contador += 1
+            else:
+                if ( rango_inferior >= valores[i] ) and ( valores[i] <= rango_superior ):
+                    contador += 1
+        return contador
+
+
+
+
+
 
 if __name__ == "__main__":
     f = open('/home/ronny/archivos/prueba2.txt','r')
@@ -36,4 +50,4 @@ if __name__ == "__main__":
     test = ChiCuadrado(valores)
     test.start()
     print test.get_rango_menor()
-
+    print ">>...",test.rango_mayor
