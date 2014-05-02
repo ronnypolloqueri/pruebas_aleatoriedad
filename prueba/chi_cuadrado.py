@@ -23,19 +23,38 @@ class ChiCuadrado(object):
                 self.rango_menor.append(self.rango_mayor[i-1])
             self.rango_mayor.append( self.rango_menor[i] + paso )
         self.rango_mayor[i] = 1.0 # el ultimo valor debe ser 1.0
+        self.iniciar_conteo()
+
+    def iniciar_conteo(self):
+        for i in range(self.fe):
+            if i != (self.fe - 1):
+                self.fo.append( self.contar( self.rango_menor[i], self.rango_mayor[i], ">" ) )
+            else:
+                self.fo.append( self.contar( self.rango_menor[i], self.rango_mayor[i], "]" ) )
+
 
     def contar(self, rango_inferior, rango_superior, llave_derecha):
         contador = 0
         for i in range(self.n):
             if llave_derecha == ">":
-                if ( rango_inferior >= valores[i] ) and ( valores[i] < rango_superior ):
+                if ( rango_inferior <= valores[i] ) and ( valores[i] < rango_superior ):
                     contador += 1
-            else:
-                if ( rango_inferior >= valores[i] ) and ( valores[i] <= rango_superior ):
+            elif llave_derecha == "]":
+                if ( rango_inferior <= valores[i] ) and ( valores[i] <= rango_superior ):
                     contador += 1
         return contador
 
-
+    def reporte(self):
+        for i in range(self.fe):
+            if i != (self.fe - 1 ) :
+                str = '{0:2d} | [ {1:1.2f} : {2:1.2f} > | {3:3d} | {4:3d} |'
+            else :
+                str = '{0:2d} | [ {1:1.2f} : {2:1.2f} ] | {3:3d} | {4:3d} |'
+            print str.format(i+1,
+                                                                self.rango_menor[i],
+                                                                self.rango_mayor[i],
+                                                                self.fo[i],
+                                                                self.fe)
 
 
 
@@ -49,5 +68,7 @@ if __name__ == "__main__":
     print ">>",valores
     test = ChiCuadrado(valores)
     test.start()
-    print test.get_rango_menor()
+    print test.rango_menor
     print ">>...",test.rango_mayor
+    print test.fo
+    print test.reporte()
