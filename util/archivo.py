@@ -4,9 +4,11 @@ class Archivo(object):
         self.archivo = archivo
 
     def get_floats(self):
+        file = open(self.archivo, 'r')
         salida = list({})
-        for linea in self.archivo:
+        for linea in file:
             salida.append(float(linea))
+        file.close()
         return salida
 
 

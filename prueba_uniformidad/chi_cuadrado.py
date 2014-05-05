@@ -57,14 +57,17 @@ class ChiCuadrado(object):
                                                                 self.fe)
 
 
-
-
 if __name__ == "__main__":
-    f = open('/home/ronny/archivos/prueba2.txt','r')
-    valores = list({})
-    for linea in f:
-        valores.append(float(linea))
-    f.close()
+    import sys, os
+    directorio =  os.path.join(os.path.dirname(__file__),'..')
+    # Agrego el directorio superior a PYTHON_PATH,
+    # para que pueda encontrar el modulo util
+    sys.path.append(directorio)
+
+    from util.archivo import Archivo
+    f = Archivo('/home/ronny/archivos/prueba2.txt')
+    valores = f.get_floats()
+
     print ">>",valores
     test = ChiCuadrado(valores)
     test.start()
