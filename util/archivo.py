@@ -7,7 +7,8 @@ class Archivo(object):
         file = open(self.archivo, 'r')
         salida = list({})
         for linea in file:
-            salida.append(float(linea))
+            if linea.strip() != '':
+                salida.append(float(linea))
         file.close()
         return salida
 
